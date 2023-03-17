@@ -52,7 +52,6 @@ import { BloctoWallet } from "@blocto/aptos-wallet-adapter-plugin";
 import { AptosWalletAdapterProvider, NetworkName } from "@aptos-labs/wallet-adapter-react";
 import { FewchaWallet } from "fewcha-plugin-wallet-adapter";
 import { MSafeWalletAdapter } from "msafe-plugin-wallet-adapter";
-import { useAuth } from "context/AuthContext";
 // import { SpacecyWallet } from "spacecy-plugin-wallet-adapter";
 type WrapperProps = {
   children: NonNullable<ReactNode>;
@@ -83,7 +82,6 @@ const Wrapper: React.FC<WrapperProps> = ({ children }) => {
     new BloctoWallet({ network: NetworkName.Testnet, bloctoAppId: "6d85f56e-5f2e-46cd-b5f2-5cf9695b4d46" }),
   ];
 
-  const { token } = useAuth();
   return (
     <ApolloProvider client={Aclient}>
     <GlobalStateProvider>
@@ -91,7 +89,7 @@ const Wrapper: React.FC<WrapperProps> = ({ children }) => {
         plugins={wallets}
         autoConnect={true}
       >
-        {token && <Navbar showConnectModal={setWalletModal} />}
+        <Navbar showConnectModal={setWalletModal} />
         {/* <MyWalletProvider> */}
         {/* <div > */}
         {/* <Nav/> */}
@@ -99,7 +97,7 @@ const Wrapper: React.FC<WrapperProps> = ({ children }) => {
         {walletModalOpen ? (
           <WalletModal isOpen={walletModalOpen} setIsOpen={setWalletModal} />
         ) : null}
-        {token && <SeamFooter />}
+        <SeamFooter />
       </AptosWalletAdapterProvider>
     </GlobalStateProvider>
 
